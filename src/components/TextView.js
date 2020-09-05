@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 
 /**
  * define props
@@ -29,23 +29,24 @@ const TextView = ({
   h6,
   style,
   children,
+  h,
   ...props
 }) => {
   const styleComponet = [
-    {fontSize: 14}, // default h6
-    margin && {margin},
-    padding && {padding},
-    bgColor && {backgroundColor: bgColor},
-    color && {color},
-    size && {fontSize: size},
-    bold && {fontWeight: 'bold'},
-    h1 && {fontSize: 44, fontWeight: 'bold'},
-    h2 && {fontSize: 38, fontWeight: 'bold'},
-    h3 && {fontSize: 32, fontWeight: 'bold'},
-    h4 && {fontSize: 28, fontWeight: 'bold'},
-    h5 && {fontSize: 22, fontWeight: 'bold'},
-    h6 && {fontSize: 18, fontWeight: 'bold'},
-    center && {textAlign: 'center'},
+    { fontSize: 14 }, // default h6
+    margin && { margin },
+    padding && { padding },
+    bgColor && { backgroundColor: bgColor },
+    color && { color },
+    size && { fontSize: size },
+    bold && { fontWeight: 'bold' },
+    h1 && { fontSize: 44, fontWeight: 'bold' },
+    h2 && { fontSize: 38, fontWeight: 'bold' },
+    h3 && { fontSize: 32, fontWeight: 'bold' },
+    h4 && { fontSize: 28, fontWeight: 'bold' },
+    h5 && { fontSize: 22, fontWeight: 'bold' },
+    h6 && { fontSize: 18, fontWeight: 'bold' },
+    center && { textAlign: 'center' },
     style,
   ];
   return (

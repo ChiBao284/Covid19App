@@ -1,46 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import {ScrollView} from 'react-native';
-import {Block, Button, TextView} from '../components';
-import {Colors} from '../color';
-
-const ItemDot = ({color1, color2, num, title}) => {
-  return (
-    <Block block>
-      <Block middle>
-        <Block
-          width={30}
-          height={30}
-          middle
-          centered
-          borderRadius={30}
-          color={color1}>
-          <Block
-            width={20}
-            height={20}
-            borderWidth={4}
-            borderRadius={20}
-            borderColor={color2}
-          />
-        </Block>
-        <TextView padding={15} color={color2} h3>
-          {num}
-        </TextView>
-        <TextView color="gray" h6>
-          {title}
-        </TextView>
-      </Block>
-    </Block>
-  );
-};
-export default function CallApi() {
+import React, { useState, useEffect } from 'react';
+import { ScrollView, ActivityIndicator, View } from 'react-native';
+import { Block, ItemDot } from '../components';
+import { Colors } from '../color';
+import axios from 'axios';
+function CallApi() {
   const [data, setData] = useState([]);
-
   useEffect(() => {
-    fetch('https://api.covid19api.com/summary')
-      .then(response => response.json())
+    axios.get('https://api.covid19api.com/summary')
+      .then(response => response.data)
       .then(response => {
-        setData([response.Countries[241]]);
-        console.log(response.Countries);
+        let res = response.Countries
+        let searchVN = res.filter(item => item.Country === 'Viet Nam')
+        setData(searchVN);
       })
       .catch(error => console.log(error));
   }, []);
@@ -53,8 +24,10 @@ export default function CallApi() {
           borderRadius={8}
           padding={10}
           shadow
-          style={{marginTop: 10}}
-          direction="row">
+          style={{ marginTop: 10 }}
+          direction="row"
+          key={item}
+        >
           <ItemDot
             color1={Colors.carot_op}
             color2={Colors.carot}
@@ -72,14 +45,19 @@ export default function CallApi() {
             color1={Colors.green_op}
             color2={Colors.green}
             num={item.TotalRecovered}
-            title={'Phục Hồi'}
+            title={'Hồi Phục'}
           />
         </Block>
       );
     });
   } else {
-    dataRender = 'Loading...';
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#00ff00" />
+      </View>
+    );
   }
 
-  return <ScrollView>{dataRender}</ScrollView>;
+  return (<ScrollView>{dataRender}</ScrollView>);
 }
+export { CallApi };
